@@ -35,7 +35,6 @@
 
 .city-time h1 {
   margin: 0;
-  /* margin-bottom: 0.2em */
   font-size: 3em;
 }
 
@@ -94,7 +93,6 @@
   font-weight: 500;
 }
 
-/* overlay */
  .content-overlay {
   background: rgba(0,0,0,0.7);
   position: absolute;
