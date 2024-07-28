@@ -19,12 +19,12 @@ const App = () => {
 
   const getData = async () => {
     const response = await fetch(
-     `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=a68a67ff52f8dcafe0829d6bd36c6ca9`
+     `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=ed23fbb154659399265499dba92d629b`
     );
 
     const items = await response.json();
     setData({
-      clouds: items.clouds.all,
+  clouds: items.clouds.all,
       humidity: items.main.humidity,
       wind: items.wind.speed,
       name: items.name,

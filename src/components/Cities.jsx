@@ -5,15 +5,12 @@ import image2 from "../images/cloudy.png";
 import image3 from "../images/sunny.jpg";
 import { BsSearch } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
-import earth from "../images/earth.png"
-import '../components/cities.css'
+import earth from "../images/earth.png";
+import "../components/cities.css";
 const Cities = (props) => {
-
   const setSearch = props.setSearch;
   const search = props.search;
   const data = props.data;
-
- 
 
   return (
     <div id="Cities-container">
