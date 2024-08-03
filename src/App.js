@@ -16,22 +16,43 @@ const App = () => {
     icon: undefined,
   });
   const [search, setSearch] = useState("Mumbai");
+  const [error, setError] = useState(null);
 
   const getData = async () => {
-    const response = await fetch(
-     `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=ed23fbb154659399265499dba92d629b`
-    );
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=ed23fbb154659399265499dba92d629b`
+      );
 
-    const items = await response.json();
-    setData({
-  clouds: items.clouds.all,
-      humidity: items.main.humidity,
-      wind: items.wind.speed,
-      name: items.name,
-      temp: items.main.temp,
-      icon: items.weather[0].icon,
-    });
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+
+      const items = await response.json();
+
+      setData({
+        clouds: items.clouds ? items.clouds.all : undefined,
+        humidity: items.main ? items.main.humidity : undefined,
+        wind: items.wind ? items.wind.speed : undefined,
+        name: items.name,
+        temp: items.main ? items.main.temp : undefined,
+        icon: items.weather && items.weather.length > 0 ? items.weather[0].icon : undefined,
+      });
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      setData({
+        clouds: undefined,
+        humidity: undefined,
+        wind: undefined,
+        name: undefined,
+        temp: undefined,
+        date: undefined,
+        icon: undefined,
+      });
+    }
   };
+
   useEffect(() => {
     getData();
   }, [search]);
@@ -40,6 +61,7 @@ const App = () => {
 
   return (
     <div>
+      {error && <p>Error: {error}</p>}
       <Home data={data} />
       <Cities setSearch={setSearch} search={search} data={data} />
       <News />
